@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="OSS_CSS_visualSearch.css">
+		<script src="OSS_JS_visualSearch.js"></script>
+	</head>
+
+	<body>
+		<!-- This calls the php function, and on submit, the page refreshes (unless otherwise specified in php) -->
+		<form name="saveData" id="saveData" action="saveFile.php" method="post">
+			<!-- Any variables you want to pass to the php have to be here -->
+			<input type="hidden" name="experimentData" id="experimentData"> <!-- this value should be your data array after JSON.stringify(data)  -->
+			<input type="hidden" name="subjID" id="subjID" value="test">
+			<input type="hidden" name="startTime" id="startTime" value="test">
+			<input type="hidden" name="startDate" id="startDate" value="test">
+			<input type="hidden" name="completedTrialsNum" id="completedTrialsNum" value=0>
+		</form>
+		
+		<!-- instructions -->
+		<div id="startingInstructions" class="instructions">
+			<p>Thank you for your interest in this <strong>Human Intelligence Task (HIT)</strong>. Please read the instructions very carefully and maximize your browser window.</p>
+			<p>In this task you will see different objects on top of different scenes. On each trial you will first be prompted with an object name (e.g. 'bed'). Pay attention and remember this object name. A fixation cross will then appear followed by a scene that has the prompted object in it. This scene will appear for a brief amount of time. After that, you will see a green fixation cross.</p>
+			<p>Your task is to respond <strong>'Where was the object in the scene - on the LEFT (press "c") or RIGHT (press "m")'</strong></p>
+			<p>You can respond anytime while the scene and green fixation cross are on the screen. </p>
+		</div>
+
+		<div id="secondInstructions" class="instructions">
+			<p>If the object was on the LEFT hand side of the scene, press the 'c' key on your keyboard. If the object was on the RIGHT hand side of the scene, then press the 'm' key on your keyboard.</p>
+			<p>Please respond as quickly and accurately as possible. When you answer incorrectly, the fixation cross will turn from green to red (<font color=red>+</font>). Try to slow down if you see you are getting many wrong!</p>
+			<br><p>When you are ready to begin the practice section, click the button below.</p>
+			<!-- <img class="center" src="paradigm_figure.png" style="width:1000px;"/> -->
+		</div>
+
+		<div id="practiceWrongInstructions" class="instructions">
+		</div>
+		<div id="firstBlockInstructions" class="instructions">
+			<p>The practice section has ended, and you will now continue onto the main experiment.</p>
+			<p>If you believe the object was on the LEFT hand side of the scene, press the 'c' key on your keyboard. If the object was on the RIGHT hand side of the scene, then press the 'm' key on your keyboard.</p>
+			<p>Respond as quickly and accurately as possible for each trial. The experiment will go quicker if you are more accurate.</p>
+			<p>When you are ready to begin the experiment, click the button below.</p>
+		</div>
+		</div>
+		<div id="secondBlockInstructions" class="instructions">
+			<p>The first part of the experiment has been completed!</p>
+			<p>In the second part of the experiment, you will see the same scenes as the first part. <b>Your task is to respond how mis-scaled the object seems to the scene on a scale from 1 (too small) to 7 (too large).</b></p>
+			<p>Some objects might appear mis-scaled to the scene, while others might be the correct size. If you think the size of the object is correct for the scene, select 4.</p>
+			<p>Respond as quickly as possible and feel free to use the entire range of options!</p>
+			<p>This is the last part of the experiment.</p>
+		</div>
+		<div id="lastBlockInstructions" class="instructions">
+		</div>
+		<div id="endExpInstructions" class="instructions">
+		</div>
+
+		<!-- buttons -->
+		<div id="nextButton" class="buttonDiv">
+			<a href="#" id="startPracticeText" onclick="showSecondInstructions()">Next</a>
+		</div>
+		<div id="startPracticeButton" class="buttonDiv">
+			<a href="#" id="startPracticeText" onclick="startBlock(thisBlockNum)">Start Practice</a>
+		</div>
+		<div id="redoPracticeButton" class="buttonDiv">
+			<a href="#" id="redoPracticeText" onclick="startBlock(thisBlockNum)">Redo Practice</a>
+		</div>
+		<div id="startExperimentButton" class="buttonDiv">
+			<a href="#" id="startExperimentText" onclick="startBlock(thisBlockNum)">Start Experiment</a>
+		</div>
+		<div id="startRatingExperimentButton" class="buttonDiv">
+			<a href="#" id="startRatingExperimentText" onclick="startBlock(thisBlockNum)">Start Part 2</a>
+		</div>
+		<div id="revealCodeButton" class="buttonDiv">
+			<a href="#" id="revealCodeText" type onclick="endExperiment()">Reveal Code</a>
+		</div>
+
+		<!-- div to preload all images so they're not glitchy -->
+		<div id="preload" class="preload">
+		</div>
+
+		<div id="age" class="ageDiv">
+			<h1> What term best expresses how you describe your gender identity? </h1>
+			<p>Note: we are asking about gender in order to understand how your responses may differ based on different demographic characteristics. Specifically in this case, we are referring to your gender identity.</p>
+
+
+			<html>
+
+			<script>
+			function getGender() {
+			var mylist = document.getElementById("myList");
+			document.getElementById("gender").value = mylist.options[mylist.selectedIndex].text;
+			var genderResponse = mylist.options[mylist.selectedIndex].text;
+
+			}
+			</script>
+
+			<body>
+			<form>
+				<b> Select a term: </b>
+				<select id = "myList" onchange = "getGender()">
+				<option> ---Choose a term--- </option>
+				<option> Man </option>
+				<option> Woman </option>
+				<option> Non-binary </option>
+				<option> Transgender </option>
+				<option>None of these describe me</option>
+				<option>Prefer not to answer</option>
+				</select>
+				<p> Your selected term is: </p>
+				<input type = "text" id = "gender" size = "20">
+			</form>
+			</body>
+			</html>
+
+
+
+			<h1> Please report your age in years below. </h1>
+			<input id="age_numb" autocomplete="off" onfocus="this.value=''" value="" autofocus/>
+
+			<button type="button" onfocus="this.value=''" value="" onclick="age_validateForm();">Submit</button>
+			<p id="_feedback"></p>
+			<script>
+			$("age_numb").focus();
+			var x_age = document.getElementById("age_numb").autofocus; // checks that cursor is in the form field automatically 
+			// console.log(x, "is it autofocused?")
+			
+			var input_age = document.getElementById("age_numb");
+			input_age.addEventListener("keyup", function(event) { // allows participant to press enter 
+			  if (event.keyCode === 13) {
+			   age_validateForm();
+			  }
+			});
+			</script>
+
+			<script>
+				
+			function age_validateForm() { // validates trial depth response 
+			  var age_response, _text;
+
+			 // Get the value of the input_age field with id="age_numb"
+			 age_response = document.getElementById("age_numb").value;
+
+
+			  // If x is not a Number, less than zero, or no response was given
+			  if (isNaN(age_response) || age_response < 0 || age_response.length == 0) {
+			    _text = "Please enter a valid number";
+			  } 
+			  else {
+			  	// getAQ();
+			  	lastInstructions();
+
+			  	_text=" "
+
+			  }
+			  document.getElementById("_feedback").innerHTML = _text;
+			}
+			</script>
+		</div>
+
+		<!-- experiment box -->
+		<div id="experimentBox">
+			<!-- stimuli -->
+			<div id="scene" class="sceneDiv">
+				<img id="sceneImage" src="" width=900>
+			</div>
+			<div id="word" class="wordDiv">
+				<img id="wordImage" src="" height=50>
+			</div>
+
+			<!-- fixations -->
+			<div id="fixationNeutral" class="fixationDiv">
+				<img src="fixations/Fixation.png" width=20>
+			</div>
+			<div id="fixationRed" class="fixationDiv">
+				<img src="fixations/WrongFixation.png" width=20>
+			</div>
+			<div id="fixationGreen" class="fixationDiv">
+				<img src="fixations/GoFixation.png" width=20>
+			</div>
+			<div id="correct" class="correctDiv">
+				<img src="fixations/Correct.png" width=200>
+			</div>
+			<div id="incorrect" class="correctDiv">
+				<img src="fixations/Incorrect.png" width=200>
+			</div>
+		</div>
+		<div id = "ratingDiv">
+			<div id="ratingExperimentBox">
+				<!-- stimuli -->
+				<div id="ratingScene" class="ratingSceneDiv">
+					<img id="ratingSceneImage" src="" width=900>
+				</div>
+			</div>
+					<!-- likert -->
+			<div id = "likert">
+				<div id = "ratingVal" value=0></div>
+<!-- 				<script type="text/javascript">
+					var validateRating = function() {
+						if ($("input[type=radio]:checked").length == 0){
+							alert('Please select an option.');
+						}
+						else {
+							// clearTimeout(trialOver);
+							submitAnswer();
+							nextRatingTrial();
+						}
+					}
+					var submitAnswer = function() {
+
+					  	var radios = document.getElementsByName('choice');
+					  	var ratingVal= "";
+					  	for (var i = 0, length = radios.length; i < length; i++) {
+					      	if (radios[i].checked) {
+					         	ratingVal = radios[i].value; 
+					         	document.getElementById("ratingVal").value = ratingVal;
+					         	break;
+					       	}
+					  	}
+					  
+					    $('input[name=choice]').prop('checked',false);
+					};
+				</script> -->
+			<center>
+				<!-- <p>How mis-scaled (too small or too big) is this object to this scene?</p> -->
+				<form>
+					<!-- <p>Too small</p> -->
+					<label><p><b style="font-size:16pt;">Too small</b></p><input type="radio" name="choice" value="1"> 1</label>
+					<label><input type="radio" name="choice" value="2"> 2</label>
+					<label><input type="radio" name="choice" value="3"> 3</label>
+					<label><p><b style="font-size:16pt;">Correct size</b></p><input type="radio" name="choice" value="4"> 4</label>
+					<label><input type="radio" name="choice" value="5"> 5</label>
+					<label><input type="radio" name="choice" value="6"> 6</label>
+					<label><p><b style="font-size:16pt;">Too large</b></p><input type="radio" name="choice" value="7"> 7</label>
+					<!-- <p>Too large</p> -->
+				</form>
+				<br>
+				<button onclick="validateRating()" style="height:50px; width:225px; font-size: 18pt; font-family: 'Times New Roman'";>Submit Answer</button>
+			</center>
+			</div>
+		</div>
+	</body>
+</html> 

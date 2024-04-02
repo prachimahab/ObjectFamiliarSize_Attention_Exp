@@ -1,0 +1,163 @@
+body {
+	font-size: 18pt;
+	display: flex;
+	flex-direction: column;
+}
+
+#submitButton {
+	text-align: center;
+	margin: 0 auto;
+	display: none;
+}
+
+.preload {
+	display: none;
+}
+
+.instructions {
+	padding-top: 20px;
+	padding-left: 200px;
+	padding-right: 200px;
+	margin: 0 auto;
+	display: none;
+	text-align: justify;
+}
+
+#startingInstructions {
+	display: block;
+}
+
+.buttonDiv {
+	width: 200px;
+	text-align: center;
+	border: 4px outset gray;
+	background:gray;
+	padding: 5px;
+	margin: 0 auto;
+	color: white;
+	display: none;
+}
+
+#startPracticeButton {
+	display: none;
+}
+
+.trialDiv {
+	border: 2px solid gray;
+	padding: 20px;
+	width: 200px;
+	margin:0 auto;
+	display: none;
+}
+
+#ratingDiv {
+	overflow:hidden;
+}
+
+#experimentBox {
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	border: 2px solid black;
+	width: 900px;
+	height: 600px;
+	margin:0 auto;
+	display: none;
+	background-color: rgb(148,145,140);
+	order: 1;
+}
+
+#ratingExperimentBox {
+/*	position: relative;*/
+	border: 2px solid black;
+	width: 900px;
+	height: 600px;
+	float: left;
+/*	margin:0 auto;*/
+	display: none;
+	background-color: rgb(148,145,140);
+	order: 1;
+}
+
+.fixationDiv {
+	position: absolute;
+	top: 290px; /* (height of experiment box - height of fixation)/2 */
+	left: 440px;/* (width of experiment box - width of fixation)/2 */
+	display: none;
+}
+
+.correctDiv{
+	position: absolute;
+	top: 225px;
+	left: 350px;/* (width of experiment box - width of word)/2 */
+	display: none;
+}
+
+.objectDiv {
+	position: absolute;
+	top: 225px; /* (height of experiment box - height of object)/2 */
+	left: 375px;/* (width of experiment box - width of object)/2 */
+	display: none;
+	/*width: 100px;*/
+}
+
+.sceneDiv {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+}
+
+.wordDiv {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.ratingObjectDiv {
+	position: absolute;
+	top: 225px; /* (height of experiment box - height of object)/2 */
+	left: 375px;/* (width of experiment box - width of object)/2 */
+	display: none;
+}
+
+.ratingSceneDiv {
+	position: absolute;
+	display: none;
+}
+
+.circleDiv {
+	position: absolute;
+	top: 175px;
+	left: 325px;
+	display: none;
+}
+
+.ratingCircleDiv {
+	position: absolute;
+	top: 175px;
+	left: 325px;
+	display: none;
+}
+
+.ageDiv {
+	display: none;
+}
+
+input[type=radio] {
+    display: block;
+    margin: 0 15px 15px;
+}
+label {
+    display: inline-block;
+}
+
+#likert{
+	display: none;
+	margin-left: 50%;
+	overflow: hidden;
+	order: 2;
+}
