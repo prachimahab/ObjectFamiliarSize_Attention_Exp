@@ -1,7 +1,9 @@
 # Object familiar size influences the efficiency of perceptual processing in natural scenes
 
 OSF Pre-Registration: 
+
 Visual Search Exp - https://osf.io/qfb3u
+
 Gabor Discrimination Exp - https://osf.io/fuhpm
 
 ## Project Abstract
